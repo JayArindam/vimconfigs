@@ -1,5 +1,5 @@
--- Get the directory of this init.lua
-local config_dir = "C:/Users/jayar/Documents/nvim"
+-- Get the directory of this init.lua (cross-platform)
+local config_dir = vim.fn.stdpath("config")
 
 -- Use this to add custom configurations XD
 dofile(config_dir .. "/configs/test.lua")
@@ -7,7 +7,8 @@ dofile(config_dir .. "/configs/remaps.lua")
 dofile(config_dir .. "/configs/nvim.lua")
 
 -- Add Lazy.nvim from your config folder to runtime path
-vim.opt.rtp:prepend(vim.fn.expand("~/Documents/nvim/lua/lazy"))
+local lazy_path = config_dir .. "/lua/lazy"
+vim.opt.rtp:prepend(lazy_path)
 
 -- ===== Plugins =====
 require("lazy").setup({
