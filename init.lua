@@ -7,8 +7,23 @@ dofile(config_dir .. "/configs/remaps.lua")
 dofile(config_dir .. "/configs/nvim.lua")
 
 -- Add Lazy.nvim from your config folder to runtime path
-local lazy_path = config_dir .. "/lua/lazy"
-vim.opt.rtp:prepend(lazy_path)
+-- Bootstrap lazy.nvim (auto-install for Windows and Linux)
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	if vim.fn.executable("git") == 0 then
+		vim.notify("git is required to install lazy.nvim. Please install git and restart Neovim.", vim.log.levels.WARN)
+	else
+		vim.fn.system({
+			"git",
+			"clone",
+			"--filter=blob:none",
+			"https://github.com/folke/lazy.nvim.git",
+			"--branch=stable",
+			lazypath,
+		})
+	end
+end
+vim.opt.rtp:prepend(lazypath)
 
 -- ===== Plugins =====
 require("lazy").setup({
