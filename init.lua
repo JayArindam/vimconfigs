@@ -87,10 +87,19 @@ require("lazy").setup({
 		lazy = false,
 		priority = 1000,
 	},
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require("catppuccin").setup({ flavour = "latte" })
+		end,
+	},
 })
 
 -- Apply the colorscheme AFTER plugins are loaded
-vim.cmd("colorscheme rose-pine")
+vim.cmd("colorscheme catppuccin")
 
 vim.cmd("hi Normal     guibg=none ctermbg=none")
 vim.cmd("hi NormalNC   guibg=none ctermbg=none")
